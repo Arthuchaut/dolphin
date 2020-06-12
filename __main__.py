@@ -1,103 +1,10 @@
 from typing import List
 import time
 import os
+from sprites import sprites, background
 
-sprites: List[str] = [
-    '''
-                               _.-~ -       
-                    _..--~~~~,'   ,-|     _ 
-                 .-'. . . .'   ,-','    ,' |
-               ,'. . . _   ,--~,-'__..-'  ,'
-             ,'. . .  (@)' ---~~~~      ,'  
-            .. . . . '~~             ,-'    
-           .. . . . .             ,-'       
-          ; . . . .  - .        ,'          
-         : . . . .       _     .            
-        . . . . .          `-.:             
-       . . . .  - .          |              
-      .  . . |  _____..---..__|             
-.   . ~.                       .--.    . `  
-    ''',
-    '''
-                                            
-                               _.-~ -       
-                    _..--~~~~,'   ,-|    _  
-                 .-'. . . .'   ,-','   ,' | 
-               ,'. . . _   ,--~,-'__.-' ,'  
-             ,'. . .  (-)' ---~~~~     ,'   
-            .. . . . '~~             ,'     
-           .. . . . .             ,-'       
-          ; . . . .  - .        ,'          
-        . . . . .        _    .             
-       . . . .  - .        `-.              
-      .  . . |  _____.......__|            .
-`   . ~.                       .--.      `  
-    ''',
-    '''
-                                            
-                                            
-                               _.-~ -       
-                    _..--~~~~,'   ,-|   _   
-                 .-'. . . .'   ,-','  ,' |  
-               ,'. . . _   ,--~,-'__..  ,'  
-             ,'. . .  >< ' ---~~~~    ,'    
-            .. . . . '~~            .       
-           .. . . . .             ,-        
-          ; . . . .  - .        ,'          
-  `      . . . .  - .      _    .           
- .  ` .  . . |  _____....__`-.      `.      
-    . ~.                       .-`.      .  
-    ''',
-    '''
-                                            
-                                            
-                               _.-~ -       
-                    _..--~~~~,'   ,-|  _    
-                 .-'. . . .'   ,-',' ,' |   
-               ,'. . . _   ,--~,-'_..  ,    
-             ,'. . .  >< ' ---~~~~   ,'     
-            .. . . . '~~            .       
-           .. . . . .             ,         
-   `.     ; . . . .  - .        ,'        .`
-        . . . .  - .      _    .       .    
-.     .  . . |  _____....__`-.              
-    . ~.                       .-`.   .  .  
-    ''',
-    '''
-                                            
-                                            
-                               _.-~ -       
-                    _..--~~~~,'   ,-|   _   
-                 .-'. . . .'   ,-','  ,' |  
-               ,'. . . _   ,--~,-'__..  ,'  
-             ,'. . .  >< ' ---~~~~    ,'    
-            .. . . . '~~            .       
-           .. . . . .             ,-        
-          ; . . . .  - .        ,'          
-  `      . . . .  - .      _    .           
- .  ` .  . . |  _____....__`-.      `.      
-    . ~.                       .-`.      .  
-    ''',
-    '''
-                                            
-                               _.-~ -       
-                    _..--~~~~,'   ,-|    _  
-                 .-'. . . .'   ,-','   ,' | 
-               ,'. . . _   ,--~,-'__.-' ,'  
-             ,'. . .  (-)' ---~~~~     ,'   
-            .. . . . '~~             ,'     
-           .. . . . .             ,-'       
-          ; . . . .  - .        ,'          
-        . . . . .        _    .             
-       . . . .  - .        `-.              
-      .  . . |  _____.......__|            .
-`   . ~.                       .--.      `  
-    ''',
-]
-
-bg: str = '''
-𝓙𝓸𝓬𝓮𝓵𝓪𝓲𝓷𝓰
-'''
+SPEED: float = 0.1
+DISTANCE: int = 30
 
 
 def invert(sprite: str) -> str:
@@ -121,17 +28,18 @@ def draw(sprite: str, bg: str, v: float) -> None:
     os.system('clear')
 
 
-def animate(*, sprites: List[str], background: str, speed: float) -> None:
+def animate(
+    *, sprites: List[str], background: str, speed: float, distance: int
+) -> None:
     i: int = 0
     j: int = 0
     k: int = 0
-    d: int = 30
     sprite: str = None
     inv: bool = False
 
     while True:
         i = i % len(sprites)
-        j = j % d
+        j = j % distance
         inv = not inv if not j else inv
         sprite = sprites[i] if inv else invert(sprites[i])
         sprite = translate(sprite, k)
@@ -143,4 +51,4 @@ def animate(*, sprites: List[str], background: str, speed: float) -> None:
         k += 1 if inv else -1
 
 
-animate(sprites=sprites, background=bg, speed=0.1)
+animate(sprites=sprites, background=background, speed=SPEED, distance=DISTANCE)
