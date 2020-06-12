@@ -51,4 +51,7 @@ def animate(
         k += 1 if inv else -1
 
 
-animate(sprites=sprites, background=background, speed=SPEED, distance=DISTANCE)
+if __name__ == '__main__':
+    animate(
+        sprites=sprites, background=background, speed=SPEED, distance=DISTANCE
+    )
